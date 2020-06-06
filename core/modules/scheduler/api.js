@@ -5,8 +5,8 @@ const cron = require('node-cron')
 const Emailer = require('../emailer/schema')
 const Campaign = require('../campaign/schema')
 const Scenario = require('../scenario/schema')
+const emailer_model = require('../emailer/api')
 const { arrayToObject } = require('../../utils/helper')
-
 
 module.exports.scheduler = function (_cb) {
   async.auto({
@@ -110,9 +110,13 @@ module.exports.scheduler = function (_cb) {
               let time = scenario.time;
 
               // cron.schedule(time, () => {
-              //   // Emailer.send({ emailer_id: emailer_id }, (err, result) => {
+              emailer_model.send({ emailer_id: emailer_id }, (err, result) => {
+                if (err) {
+                  console.log(err)
+                }
 
-              //   // })
+                console.log(result)
+              })
               // })
 
               return cb(null, { scheduled_at: time })
@@ -137,7 +141,6 @@ module.exports.scheduler = function (_cb) {
       return _cb({ code: 'ERROR_SCHEDULING', message: error })
     }
 
-    return _cb(null, { code: 'EMAILER_SCHEDULED' })
+    return _cb(null, { code: 'EMAILER_SCHEDULE_TASK_SUCCESS' })
   })
-
 }

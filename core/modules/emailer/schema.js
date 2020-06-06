@@ -24,6 +24,11 @@ const schema = mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  sent: {
+    type: Boolean,
+    default: false
   }
 });
+
 module.exports = mongoose.model('emailer', schema);
