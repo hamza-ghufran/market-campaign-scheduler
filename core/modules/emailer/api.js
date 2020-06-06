@@ -3,9 +3,10 @@ const Emailer = require('./schema')
 const Batch = require('../batch/schema')
 const Contacts = require('../contacts/schema')
 const Scenario = require('../scenario/schema')
+const sgMailer = require('../../utils/send-grid')
 
 module.exports.send = function (data, _cb) {
-  let emailer_id = data.emailer_id
+  const emailer_id = data.emailer_id
 
   async.auto({
     get_emailer_obj: (cb) => {
@@ -50,11 +51,11 @@ module.exports.send = function (data, _cb) {
     }],
     list_all_contacts: ['get_batch_obj', 'get_emailer_obj', (result, cb) => {
       let batch = result.get_batch_obj.batch
-      let recipients = batch.recipients
+      let recipient = batch.recipient
 
       Contacts.find({
         '_id': {
-          $in: recipients
+          $in: recipient
         }
       })
         .then((contacts) => {
@@ -70,20 +71,42 @@ module.exports.send = function (data, _cb) {
     }],
     send_email: ['list_all_contacts', 'get_scenario_obj', (result, cb) => {
       let contacts = result.list_all_contacts.contacts
+      let scenario = result.get_scenario_obj.scenario
 
-      // async.mapSeries(contacts, (contact, callback) => {
+      async.mapSeries(contacts, (contact, callback) => {
 
-      // }, (err, all_scenarios) => {
-      //   if (err) return cb(err)
+        sgMailer({
+          to: contact.email,
+          text: scenario.content,
+          subject: scenario.subject,
+          from: 'hamzazeb95@gmail.com',
+          html: `<strong>${scenario.content}</strong>`,
+        }, callback)
 
-      //   return cb(null, {})
-      // })
+      }, (err, all_scenarios) => {
+        if (err) return cb(err)
+
+        return cb(null, {})
+      })
 
       return cb(null, {})
     }],
-    mark_emailer_obj_complete: ['send_email', (result, cb) => {
-
-      return cb(null, {})
+    mark_email_obj_as_sent: ['send_email', (result, cb) => {
+      console.log(emailer_id)
+      Emailer.updateOne({ _id: emailer_id },
+        {
+          '$set': {
+            active: false,
+            sent: true,
+          }
+        })
+        .then((result) => {
+          console.log(result)
+          return cb(null, {})
+        })
+        .catch((err) => {
+          return cb({ code: 'ERROR_UPDATING_EMAILER' })
+        })
     }]
   }, function (error, results) {
 

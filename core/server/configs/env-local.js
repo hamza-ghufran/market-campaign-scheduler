@@ -10,5 +10,5 @@ module.exports = {
     name: "mongoDB",
     connector: "mongoose",
     useNewUrlParser: true
-  }
+  },
 }
