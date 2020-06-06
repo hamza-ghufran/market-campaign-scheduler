@@ -1,5 +1,5 @@
 {
-  "name": "gerald-campaign-api",
+  "name": "market-campaign-core",
   "version": "1.0.0",
   "description": "To run some random campaign",
   "main": "app.js",

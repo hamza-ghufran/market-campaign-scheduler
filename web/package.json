@@ -1,5 +1,5 @@
 {
-  "name": "gerald-market-web",
+  "name": "market-campaign-web",
   "author": "hamza/other",
   "version": "1.0.0",
   "private": false,
@@ -43,7 +43,12 @@
     "recompose": "^0.30.0",
     "underscore": "^1.9.1",
     "uuid": "^3.3.2",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "react-redux": "7.1.0",
+    "redux": "4.0.4",
+    "redux-actions": "2.6.5",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.1",
