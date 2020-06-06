@@ -14,10 +14,6 @@ const schema = mongoose.Schema({
         required: true
     },
 
-    recipients: {
-        type: Array
-    },
-
     start_date: {
         type: Date,
         required: true

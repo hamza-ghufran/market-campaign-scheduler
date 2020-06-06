@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const app = express();
-
 const contactRoutes = require('./routes/contacts');
 const scenarioRoutes = require("./routes/scenario");
 const campaignRoutes = require("./routes/campaign");
+
+require('./boot/cron-task')()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

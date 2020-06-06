@@ -26,7 +26,6 @@ module.exports.add = function (data, _cb) {
         batch_id: batch._id,
         end_date: data.end_date,
         start_date: data.start_date,
-        recipients: data.recipients,
         description: data.description,
       })
         .save()
