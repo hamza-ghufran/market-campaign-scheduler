@@ -77,7 +77,5 @@ The cron script schduled to run for a scenario performs the following tasks.
 
 ## TODOs
 
-* The recipient of an email should be able to unsubscribe from the campaign.
-* Once unsubscribed, the system will not send them an email from the currently running campaign.
 
 

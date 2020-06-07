@@ -67,5 +67,18 @@ module.exports.upload = function (data, _cb) {
     })
 }
 
+module.exports.remove = function (data, cb) {
+  let name = data.name
+
+  Contacts.deleteOne({ name })
+    .then((result) => {
+      return cb(null, { message: 'We will miss you' })
+    })
+    .catch(err => {
+      console.log(err)
+      return cb(err)
+    });
+}
+
 module.exports.add = add
 

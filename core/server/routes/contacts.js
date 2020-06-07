@@ -32,4 +32,18 @@ router.post("/upload", upload.single('file'), (req, res, next) => {
   })
 });
 
+router.get("/unsubscribe", (req, res, next) => {
+
+  Contacts.remove(req.query, (err, result) => {
+    if (err) {
+      res.status(500).json({
+        error: err
+      });
+      return next()
+    }
+
+    res.status(200).json({ ...result })
+  })
+});
+
 module.exports = router;

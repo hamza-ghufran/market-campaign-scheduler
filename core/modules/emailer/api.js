@@ -80,7 +80,11 @@ module.exports.send = function (data, _cb) {
           text: scenario.content,
           subject: scenario.subject,
           from: 'hamzazeb95@gmail.com',
-          html: `<strong>${scenario.content}</strong>`,
+          html: `
+          <strong>${scenario.content}</strong>
+          <br>
+          <a href="http://localhost:3002/contacts/unsubscribe?name=${contact.name}">Stop receiving email</a>
+          `
         }, callback)
 
       }, (err, all_scenarios) => {
