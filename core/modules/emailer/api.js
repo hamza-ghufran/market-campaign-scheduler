@@ -88,8 +88,6 @@ module.exports.send = function (data, _cb) {
 
         return cb(null, {})
       })
-
-      return cb(null, {})
     }],
     mark_email_obj_as_sent: ['send_email', (result, cb) => {
       Emailer.updateOne({ _id: emailer_id },
@@ -100,13 +98,29 @@ module.exports.send = function (data, _cb) {
           }
         })
         .then((result) => {
-          console.log(result)
           return cb(null, {})
         })
         .catch((err) => {
           return cb({ code: 'ERROR_UPDATING_EMAILER' })
         })
-    }]
+    }],
+    update_scenario_on_contact_served: [
+      'get_emailer_obj',
+      'list_all_contacts',
+      'mark_email_obj_as_sent', (result, cb) => {
+        let emailer_obj = result.get_emailer_obj.emailer
+        let scenario_id = emailer_obj.scenario_id
+        let contacts = result.list_all_contacts.contacts
+
+        Scenario.updateOne({ _id: scenario_id },
+          { contact_served: contacts.length })
+          .then((scenario) => {
+            return cb(null, {})
+          })
+          .catch((err) => {
+            return cb({ code: 'UPDATE_SCENARIO_ERROR', message: err })
+          })
+      }]
   }, function (error, results) {
 
     if (error) {

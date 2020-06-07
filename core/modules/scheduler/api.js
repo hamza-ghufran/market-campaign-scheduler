@@ -99,6 +99,7 @@ module.exports.scheduler = function (_cb) {
                     return cb(null, { emailer_id: emailer._id })
                   })
                   .catch((err) => {
+                    console.log(err)
                     return cb({ code: 'INSERT_INTO_EMAILER_ERROR' })
                   })
               }],

@@ -34,6 +34,10 @@ const schema = mongoose.Schema({
     required: true
   },
 
+  contact_served: {
+    type: Number
+  },
+
   active: {
     type: Boolean,
     default: true

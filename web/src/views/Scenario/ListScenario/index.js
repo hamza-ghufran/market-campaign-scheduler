@@ -63,7 +63,7 @@ const ListScenario = props => {
           </Grid>
 
           <Grid item className={classes.statsItem}>
-            <Typography display="inline" variant="body2">{scenario.served} Contacts Served</Typography>
+            <Typography display="inline" variant="body2"><strong>{scenario.contact_served}</strong> Contacts Served</Typography>
           </Grid>
         </Grid>
       </CardActions>

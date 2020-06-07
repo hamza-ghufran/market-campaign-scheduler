@@ -1,0 +1,59 @@
+
+###Gerald Apis
+
+POST http://localhost:3002/campaign/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "name":"Covid Tackle",
+  "end_date":"Sun Jun 07 2020 18:56:44 GMT+0530 (India Standard Time)",
+  "start_date":"Fri Jun 05 2020 18:56:44 GMT+0530 (India Standard Time)",
+  "description":"Something"
+}
+
+###
+
+POST http://localhost:3002/campaign/list HTTP/1.1
+Content-Type: application/json
+
+# {
+#   "name": "Covid",
+#   "date": "1591405049922",
+#   "time": "1591405049922",
+#   "content": "",
+#   "subject": "",
+#   "campaign_id": ""
+# }
+
+###
+
+POST http://localhost:3002/contacts/add HTTP/1.1
+Content-Type: application/json
+
+{
+"batch_id": "5edcc37627134651149433a1",
+"contacts": [{ 
+  "name": "hamza",
+  "email":"hamzazebghufran@gmail.com",
+  "batch_id": "5edcc37627134651149433a1"
+ },
+ {
+   "name": "hamza the jack",
+  "email":"hamzazeb95@gmail.com",
+  "batch_id": "5edcc37627134651149433a1"
+ }]
+}
+
+###
+
+POST http://localhost:3002/scenario/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Monday-Task",
+  "date": "Sat Jun 06 2020 19:17:56 GMT+0530 (India Standard Time)",
+  "time": "1591451276341",
+  "content": "Wash Hands",
+  "subject": "Washing",
+  "campaign_id": "5edb9da4e38a4419caf2e9f2"
+}

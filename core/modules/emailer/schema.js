@@ -13,7 +13,7 @@ const schema = mongoose.Schema({
     required: true
   },
   scheduled_at: {
-    type: Date,
+    type: String,
     required: true
   },
   campaign_id: {

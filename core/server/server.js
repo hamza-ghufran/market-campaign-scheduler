@@ -1,5 +1,5 @@
 require('dotenv').config({ path: 'variables.env' });
-// require('./boot/cron-task')()
+require('./boot/cron-task')()
 
 const cors = require('cors')
 const express = require("express");
