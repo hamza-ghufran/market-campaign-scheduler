@@ -28,16 +28,11 @@ const useStyles = makeStyles(theme => ({
 
 const Toolbar = props => {
   const { className, ...rest } = props;
-
   const classes = useStyles();
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}>
-      <div className={classes.row}>
-        <span className={classes.spacer} />
-        <Button className={classes.exportButton}>Import Contacts</Button>
+    <div {...rest} className={clsx(classes.root, className)}>
+      <div className={classes.row}> <span className={classes.spacer} />
         <Button color="primary" variant="contained">Create Campaign</Button>
       </div>
     </div>

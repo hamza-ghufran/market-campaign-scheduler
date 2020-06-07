@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -10,7 +11,6 @@ import {
   CardContent,
   CardActions,
 } from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const useStyles = makeStyles(theme => ({
@@ -40,66 +40,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ListScenario = props => {
-  const { className, product, ...rest } = props;
-
+  const { className, scenario, ...rest } = props;
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent>
-        <div className={classes.imageContainer}>
-          <img
-            alt="Product"
-            className={classes.image}
-            src={product.imageUrl}
-          />
-        </div>
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          {product.title}
-        </Typography>
-        <Typography
-          align="center"
-          variant="body1"
-        >
-          {product.description}
-        </Typography>
+        <Typography align="center" gutterBottom variant="h4">{scenario.name}</Typography>
+        <Typography align="center" variant="body1">{scenario.subject}</Typography>
       </CardContent>
+
       <Divider />
+
       <CardActions>
-        <Grid
-          container
-          justify="space-between"
-        >
-          <Grid
-            className={classes.statsItem}
-            item
-          >
+        <Grid container justify="space-between">
+          <Grid item className={classes.statsItem}>
             <AccessTimeIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              Updated 2hr ago
-            </Typography>
+            <Typography display="inline" variant="body2">{moment(scenario.time).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
           </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalDownloads} Downloads
-            </Typography>
+
+          <Grid item className={classes.statsItem}>
+            <Typography display="inline" variant="body2">{scenario.served} Contacts Served</Typography>
           </Grid>
         </Grid>
       </CardActions>
@@ -109,7 +70,7 @@ const ListScenario = props => {
 
 ListScenario.propTypes = {
   className: PropTypes.string,
-  product: PropTypes.object.isRequired
+  scenario: PropTypes.object.isRequired
 };
 
 export default ListScenario;

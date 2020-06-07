@@ -49,7 +49,7 @@ module.exports.add = function (data, _cb) {
 
 module.exports.list = function (data, cb) {
 
-  Campaign.find()
+  Campaign.find({ active: true })
     .then((docs) => {
       if (docs.length) {
         return cb(null, { code: 'LIST_CAMPAIGN_FETCHED', data: docs })

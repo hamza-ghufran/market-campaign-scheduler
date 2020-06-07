@@ -3,7 +3,10 @@ let currentEnv = process.env.NODE_ENV;
 let envApiConfg = {
   default: {
     core: {
-      baseUrl: "http://localhost:3002"
+      baseUrl: "http://localhost:3002",
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
   }
 };

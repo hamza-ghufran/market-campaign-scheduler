@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import moment from 'moment';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Card,
-  CardActions,
-  CardContent,
-  Avatar,
-  Checkbox,
   Table,
+  Button,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
   Typography,
-  TablePagination
+  CardActions,
+  CardContent,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -40,23 +38,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ListCampaign = props => {
-  const { className, users, ...rest } = props;
-
+  const { className, list_campaign, ...rest } = props;
   const classes = useStyles();
 
-  const [selectedUsers, setSelectedUsers] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(0);
-
-  const handleRowsPerPageChange = event => {
-    setRowsPerPage(event.target.value);
-  };
-
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
@@ -64,34 +50,28 @@ const ListCampaign = props => {
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Registration date</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Start Date</TableCell>
+                  <TableCell>End Date</TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell>Contacts</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users.slice(0, rowsPerPage).map(user => (
+                {list_campaign && list_campaign.length && list_campaign.map(campaign => (
                   <TableRow
-                    className={classes.tableRow}
                     hover
-                    key={user.id}
-                    selected={selectedUsers.indexOf(user.id) !== -1}
+                    key={campaign._id}
+                    className={classes.tableRow}
                   >
-                    <TableCell>
-                      <div className={classes.nameContainer}>
-                        <Typography variant="body1">{user.name}</Typography>
-                      </div>
+                    <TableCell><div className={classes.nameContainer}>
+                      <Typography variant="body1">{campaign.name}</Typography></div>
                     </TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>
-                      {user.address.city}, {user.address.state},{' '}
-                      {user.address.country}
-                    </TableCell>
-                    <TableCell>{user.phone}</TableCell>
-                    <TableCell>
-                      {moment(user.createdAt).format('DD/MM/YYYY')}
-                    </TableCell>
+                    <TableCell>{campaign.description}</TableCell>
+                    <TableCell>{moment(campaign.start_date).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>{moment(campaign.end_date).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>{campaign.active ? 'Yes' : 'No'}</TableCell>
+                    <TableCell><Button>Upload</Button></TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -107,7 +87,6 @@ const ListCampaign = props => {
 
 ListCampaign.propTypes = {
   className: PropTypes.string,
-  users: PropTypes.array.isRequired
 };
 
 export default ListCampaign;

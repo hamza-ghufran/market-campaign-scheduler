@@ -8,13 +8,13 @@ import "isomorphic-fetch";
 
 export function getAction(dispatch, action) {
   return {
-    req: function() {
+    req: function () {
       return dispatch(action({ isFetching: true, message: null }));
     },
-    res: function(response) {
+    res: function (response) {
       return dispatch(action(handlePayload(response)));
     },
-    err: function(error) {
+    err: function (error) {
       return dispatch(action(handleError(error)));
     }
   };
@@ -26,15 +26,12 @@ export function getAction(dispatch, action) {
  */
 
 export function handlePayload(response) {
-  if (response.data.redirect) {
-    window.location.href = response.data.redirect;
-  }
-
+  console.log(response)
   return {
     isFetching: false,
-    success: true,
     data: response.data.data,
-    message: response.data.message
+    success: response.status,
+    message: response.data.code
   };
 }
 
@@ -46,15 +43,6 @@ export function handlePayload(response) {
 
 export function handleError(error) {
   if (error.response) {
-    if (
-      error.response &&
-      error.response.data &&
-      error.response.data.error &&
-      error.response.data.error.redirect
-    ) {
-      window.location.href = error.response.data.error.redirect;
-    }
-
     return {
       isFetching: false,
       success: false,

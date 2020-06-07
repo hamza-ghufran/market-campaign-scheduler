@@ -15,7 +15,7 @@ router.post("/list", (req, res, next) => {
       return next()
     }
 
-    res.status(200).json({ list_scenario: result })
+    res.status(200).json({ ...result })
   });
 })
 

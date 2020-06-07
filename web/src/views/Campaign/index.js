@@ -1,29 +1,67 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
 
-import mockData from './data';
 import { Toolbar } from './components';
 import ListCampaign from './ListCampaign';
 
-const useStyles = makeStyles(theme => ({
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+
+import {
+  listCampaign,
+} from 'actions';
+
+const style = theme => ({
   root: {
     padding: theme.spacing(3)
   },
   content: {
     marginTop: theme.spacing(2)
   }
-}));
+})
 
-const Campaign = () => {
-  const classes = useStyles();
+class Campaign extends React.Component {
+  constructor(props) {
+    super(props)
 
-  const [users] = useState(mockData);
+    this.state = {
 
-  return (
-    <div className={classes.root}><Toolbar />
-      <div className={classes.content}><ListCampaign users={users} /></div>
-    </div>
-  );
+    }
+  }
+
+  componentDidMount() {
+    this.fetchListCampaign()
+  }
+
+  fetchListCampaign = () => {
+    const { dispatch } = this.props;
+
+    dispatch(listCampaign())
+  }
+
+  renderComponent = () => {
+    const { classes, list_campaign } = this.props
+
+    console.log(list_campaign)
+    return (
+      <div className={classes.root}><Toolbar />
+        <div className={classes.content}><ListCampaign list_campaign={list_campaign} /></div>
+      </div>
+    );
+  }
+
+  render() {
+    return this.renderComponent()
+  }
+}
+
+const mapStateToProps = state => {
+  const { campaign } = state;
+  return {
+    list_campaign: campaign.list_campaign,
+  };
 };
 
-export default Campaign;
+const styledCampaign = withStyles(style)(Campaign);
+
+export default connect(mapStateToProps)(styledCampaign);
+
