@@ -32,9 +32,7 @@ module.exports.scheduler = function (_cb) {
     },
     list_scenarios_scheduled_for_today_of_active_campaigns: ['list_active_campaigns', (result, cb) => {
       let campaigns = result.list_active_campaigns.campaigns
-
       let campaigns_by_campaign_id = arrayToObject(campaigns, '_id')
-
       let all_active_campaign_keys = Object.keys(campaigns_by_campaign_id)
 
       Scenario.find({
@@ -74,7 +72,6 @@ module.exports.scheduler = function (_cb) {
             get_campaign_obj: (cb) => {
               let campaigns = result.list_active_campaigns.campaigns
               let campaigns_by_campaign_id = arrayToObject(campaigns, '_id')
-
               let campaign_obj = campaigns_by_campaign_id[scenario.campaign_id]
 
               return cb(null, { campaign_obj })
@@ -107,17 +104,20 @@ module.exports.scheduler = function (_cb) {
               }],
             schedule_emailer: ['insert_into_emailer_table', (result, cb) => {
               let emailer_id = result.insert_into_emailer_table.emailer_id
-              let time = scenario.time;
+              let time = scenario.time.split(':');
 
-              // cron.schedule(time, () => {
-              emailer_model.send({ emailer_id: emailer_id }, (err, result) => {
-                if (err) {
-                  console.log(err)
-                }
+              let at_hour = time[0]
+              let at_minute = time[1]
 
-                console.log(result)
+              cron.schedule(`${at_minute} ${at_hour} * * *`, () => {
+                emailer_model.send({ emailer_id: emailer_id }, (err, result) => {
+                  if (err) {
+                    console.log(err)
+                  }
+
+                  console.log(result)
+                })
               })
-              // })
 
               return cb(null, { scheduled_at: time })
             }],

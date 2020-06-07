@@ -26,7 +26,6 @@ export function getAction(dispatch, action) {
  */
 
 export function handlePayload(response) {
-  console.log(response)
   return {
     isFetching: false,
     data: response.data.data,

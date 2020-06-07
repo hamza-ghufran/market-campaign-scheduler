@@ -1,3 +1,5 @@
+import { arrayToObject } from "utils/helper";
+
 export const listCampaign = {
   LIST_CAMPAIGN: (state, action) => {
     return Object.assign({}, state, {
@@ -6,7 +8,17 @@ export const listCampaign = {
       message: action.payload.message,
       isFetching: action.payload.isFetching,
 
-      list_campaign: action.payload.data,
+      ...formatPayload(action.payload.data, state)
     });
   },
 };
+
+
+function formatPayload(payload, prev_state) {
+  if (!payload) return {}
+
+  return {
+    list_campaign_obj: arrayToObject(payload, "_id"),
+    list_campaign: payload
+  }
+}

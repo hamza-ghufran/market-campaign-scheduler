@@ -64,10 +64,10 @@ class Scenario extends React.Component {
     let scenario_req_obj = {
       name: this.state.name,
       date: this.state.date,
+      time: this.state.time,
       subject: this.state.subject,
       content: this.state.content,
       campaign_id: this.state.campaign_id,
-      time: moment().format(this.state.time),
     }
 
     dispatch(addScenario(scenario_req_obj))
@@ -106,8 +106,11 @@ class Scenario extends React.Component {
               <Grid container spacing={3}>
                 {list_scenario && list_scenario.length &&
                   list_scenario.map(scenario => (
-                    <Grid item key={scenario.id} lg={4} md={6} xs={12}>
-                      <ListScenario scenario={scenario} />
+                    <Grid item key={scenario.id} lg={6} md={6} xs={12}>
+                      <ListScenario
+                        scenario={scenario}
+                        list_campaign_obj={this.props.list_campaign_obj}
+                      />
                     </Grid>
                   ))}
               </Grid>
@@ -118,7 +121,6 @@ class Scenario extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return this.renderComponent()
   }
 }
@@ -128,6 +130,7 @@ const mapStateToProps = state => {
   return {
     list_scenario: scenario.list_scenario,
     list_campaign: campaign.list_campaign,
+    list_campaign_obj: campaign.list_campaign_obj,
   };
 };
 

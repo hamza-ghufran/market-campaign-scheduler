@@ -41,7 +41,7 @@ export const Form = props => {
                 helperText="Please specify a name"
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
               <TextField
                 required
                 fullWidth
@@ -54,9 +54,12 @@ export const Form = props => {
                 helperText="Topic"
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
               <TextField
                 required
+                multiline={true}
+                rows={8} 
+                rowsMax={10}
                 fullWidth
                 name="content"
                 margin="dense"

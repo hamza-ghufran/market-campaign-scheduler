@@ -47,7 +47,10 @@ const ListScenario = props => {
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent>
         <Typography align="center" gutterBottom variant="h4">{scenario.name}</Typography>
-        <Typography align="center" variant="body1">{scenario.subject}</Typography>
+        <Divider />
+        <Typography align="center" gutterBottom variant="h5">{scenario.subject}</Typography>
+        <Typography align="center" gutterBottom variant="body1">{scenario.content}</Typography>
+        <Typography align="center" variant="caption">{props.list_campaign_obj && props.list_campaign_obj[scenario.campaign_id].name}</Typography>
       </CardContent>
 
       <Divider />
@@ -56,7 +59,7 @@ const ListScenario = props => {
         <Grid container justify="space-between">
           <Grid item className={classes.statsItem}>
             <AccessTimeIcon className={classes.statsIcon} />
-            <Typography display="inline" variant="body2">{moment(scenario.time).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
+            <Typography display="inline" variant="body2">{moment(scenario.date).format('MMMM Do YYYY') + ' at ' + scenario.time}</Typography>
           </Grid>
 
           <Grid item className={classes.statsItem}>
@@ -64,7 +67,7 @@ const ListScenario = props => {
           </Grid>
         </Grid>
       </CardActions>
-    </Card>
+    </Card >
   );
 };
 
