@@ -8,8 +8,9 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
+  addCampaign,
   listCampaign,
-  addCampaign
+  uploadContacts
 } from 'actions';
 import AddCampaign from './AddCampaign';
 
@@ -74,6 +75,25 @@ class Campaign extends React.Component {
     });
   };
 
+  onFileUpload = (event, batch_id) => {
+    this.setState({
+      file: event.target.files[0],
+      selected_batch_id: batch_id
+    }, () => {
+      this.handleFileUpload()
+    });
+  }
+
+  handleFileUpload = () => {
+    const { dispatch } = this.props;
+    const data = new FormData()
+
+    data.append('file', this.state.file)
+    data.append('batch_id', this.state.selected_batch_id)
+
+    dispatch(uploadContacts(data))
+  };
+
   renderComponent = () => {
     const { classes, list_campaign } = this.props
 
@@ -88,7 +108,11 @@ class Campaign extends React.Component {
         return (
           <div className={classes.root}>
             <Toolbar handleGoToAddCampaign={this.handleGoToAddCampaign} />
-            <div className={classes.content}><ListCampaign list_campaign={list_campaign} /></div>
+            <div className={classes.content}>
+              <ListCampaign
+                list_campaign={list_campaign}
+                onFileUpload={this.onFileUpload}
+              /></div>
           </div>
         );
     }

@@ -7,3 +7,7 @@ export {
         listScenario,
         addScenario
 } from 'actions/api/scenario';
+
+export {
+        uploadContacts
+} from 'actions/api/contacts';

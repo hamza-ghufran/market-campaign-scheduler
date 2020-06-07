@@ -17,6 +17,10 @@ import {
   CardContent,
 } from '@material-ui/core';
 
+import {
+  CloudUploadOutlined
+} from '@material-ui/icons';
+
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -59,19 +63,22 @@ const ListCampaign = props => {
               </TableHead>
               <TableBody>
                 {list_campaign && list_campaign.length && list_campaign.map(campaign => (
-                  <TableRow
-                    hover
-                    key={campaign._id}
-                    className={classes.tableRow}
-                  >
+                  <TableRow hover key={campaign._id} className={classes.tableRow}>
                     <TableCell><div className={classes.nameContainer}>
                       <Typography variant="body1">{campaign.name}</Typography></div>
                     </TableCell>
                     <TableCell>{campaign.description}</TableCell>
-                    <TableCell>{moment(campaign.start_date).format('DD/MM/YYYY')}</TableCell>
-                    <TableCell>{moment(campaign.end_date).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>{moment(campaign.start_date).format('MMMM Do YYYY')}</TableCell>
+                    <TableCell>{moment(campaign.end_date).format('MMMM Do YYYY')}</TableCell>
                     <TableCell>{campaign.active ? 'Yes' : 'No'}</TableCell>
-                    <TableCell><Button>Upload</Button></TableCell>
+                    <TableCell>
+                      <input
+                        onChange={(e) => props.onFileUpload(e, campaign.batch_id)}
+                        type="file"
+                      // style={{ display: "none" }}
+                      />
+                      {/* <CloudUploadOutlined /> */}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -4,9 +4,6 @@ let envApiConfg = {
   default: {
     core: {
       baseUrl: "http://localhost:3002",
-      headers: {
-        'Content-Type': 'application/json'
-      }
     }
   }
 };

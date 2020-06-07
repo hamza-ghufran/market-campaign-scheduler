@@ -1,5 +1,6 @@
 import campaign from "reducers/campaign";
 import scenario from "reducers/scenario";
+import contacts from "reducers/contacts";
 
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
@@ -8,7 +9,8 @@ import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 
 const appReducer = combineReducers({
   campaign,
-  scenario
+  scenario,
+  contacts
 });
 
 const rootReducer = (state, action) => {
