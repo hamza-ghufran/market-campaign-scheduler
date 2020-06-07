@@ -31,11 +31,11 @@
 > Create Scenario
 
 * User creates a scenario providing the following info:
-  1. Subject: Plain text 
-  2. Content: Plain text
-  3. Date 
-  4. Time at which to send the email 
-  5. Assigns each scenario to a campaign
+1. Subject: Plain text 
+2. Content: Plain text
+3. Date 
+4. Time at which to send the email 
+5. Assigns each scenario to a campaign
 
 > List Scenario and Campaign
 
@@ -55,9 +55,29 @@ The scheduler does the following tasks order wise.
     * Then it makes an entry into the `emailer` table with the batch_id, scenario_id and campaign_id,    and the time at which it is scheduled to run. 
     * The newly made `emailer entry` is marked as `active:true` and `sent:false`
 4. Once the entry is made, a cron script is then scheduled to run at the time specified in the scenario.
+   emailer `_id` is passed into each cron script.
 
 ## Sending Email
 
-The cron script schduled to run for a scenario performs the following tasks in order.
+The cron script schduled to run for a scenario performs the following tasks.
+
+1. Using the emailer_id it first gets the emailer obj
+2. batch_id present in the emailer obj is then used to fetch the batch obj
+3. Similarily, scenario_id present in the emailer obj is used to fetch the scenario obj
+4. Now using the batch obj fetched, all the contacts are listed using `recipient array`
+5. Finally, phew, For each contact:
+   * An email is sent to the customer using scenario content and subject  
+6. Once the email is sent, the emailer entry is marked is `active:false` and `sent:true`
+7. The scenario entry is also updated with the number of contacts served.
+
+## Code structure
+
+* core -> backend
+* web  -> frontend
+
+## TODOs
+
+* The recipient of an email should be able to unsubscribe from the campaign.
+* Once unsubscribed, the system will not send them an email from the currently running campaign.
 
 
