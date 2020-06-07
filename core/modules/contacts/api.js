@@ -1,14 +1,12 @@
 'use strict'
 
-const fs = require('fs');
-const csv = require('fast-csv');
 const async = require('async');
 const Contacts = require("./schema");
 const Batch = require('../batch/schema');
+const csv_parser = require('../../utils/csv-parser');
 const { arrayToObject } = require('../../utils/helper');
 
-module.exports.add = function (data, _cb) {
-
+const add = function (data, _cb) {
   async.auto({
     create_contacts: (cb) => {
       let contacts = data.contacts
@@ -18,6 +16,7 @@ module.exports.add = function (data, _cb) {
           return cb(null, { contacts: result })
         })
         .catch(err => {
+          console.log(err)
           return cb(err)
         });
     },
@@ -42,7 +41,6 @@ module.exports.add = function (data, _cb) {
         });
     }]
   }, function (error, results) {
-
     if (error) {
       return _cb({ code: 'INSERT_ERROR', message: error })
     }
@@ -51,21 +49,23 @@ module.exports.add = function (data, _cb) {
   })
 }
 
-
 module.exports.upload = function (data, _cb) {
-
   let file_path = data.file.path
   let batch_id = data.body.batch_id
 
-  let fileRows = []
-  csv.parseFile(file_path)
-    .on("data", function (data) {
-      fileRows.push(data);
-    })
-    .on("end", function () {
-      console.log(fileRows)
-      fs.unlinkSync(file_path);
-    })
+  new csv_parser({
+    batch_id,
+    file_path,
+  })
+    .read((contacts) => {
+      let dataObj = {
+        contacts: contacts,
+        batch_id
+      }
 
-  return _cb()
+      add(dataObj, _cb)
+    })
 }
+
+module.exports.add = add
+

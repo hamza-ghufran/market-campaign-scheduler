@@ -28,7 +28,7 @@ router.post("/upload", upload.single('file'), (req, res, next) => {
       return next()
     }
 
-    res.status(200).json({ ...result })
+    res.status(200).json({ result })
   })
 });
 
