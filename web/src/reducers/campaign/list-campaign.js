@@ -8,5 +8,5 @@ export const listCampaign = {
 
       list_campaign: action.payload.data,
     });
-  }
+  },
 };

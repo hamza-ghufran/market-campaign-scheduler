@@ -23,14 +23,13 @@ const Routes = () => {
         to="/campaigns"
       />
       <RouteWithLayout
-        exact
-        path="/campaigns"
+        path="/campaigns/:add?"
         layout={MainLayout}
         component={CampaignView}
       />
       <RouteWithLayout
         exact
-        path="/scenarios"
+        path="/scenarios/:add?"
         layout={MainLayout}
         component={ScenarioView}
       />

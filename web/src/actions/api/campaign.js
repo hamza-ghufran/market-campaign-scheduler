@@ -18,7 +18,7 @@ export function listCampaign(reqObj) {
 	}
 }
 
-export function createCampaign(reqObj) {
+export function addCampaign(reqObj) {
 	return dispatch => {
 		let action = getAction(dispatch, updateCampaignAction);
 		action.req();

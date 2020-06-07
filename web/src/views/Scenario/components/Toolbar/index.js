@@ -28,16 +28,13 @@ const useStyles = makeStyles(theme => ({
 
 const Toolbar = props => {
   const { className, ...rest } = props;
-
   const classes = useStyles();
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}>
+    <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
         <span className={classes.spacer} />
-        <Button color="primary" variant="contained">Add Scenario</Button>
+        <Button onClick={props.handleGoToAddScenario} color="primary" variant="contained">Add Scenario</Button>
       </div>
     </div>
   );

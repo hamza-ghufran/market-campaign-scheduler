@@ -92,7 +92,6 @@ module.exports.send = function (data, _cb) {
       return cb(null, {})
     }],
     mark_email_obj_as_sent: ['send_email', (result, cb) => {
-      console.log(emailer_id)
       Emailer.updateOne({ _id: emailer_id },
         {
           '$set': {

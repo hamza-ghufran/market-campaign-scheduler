@@ -1,7 +1,9 @@
 export {
-        listCampaign
+        listCampaign,
+        addCampaign
 } from 'actions/api/campaign';
 
 export {
-        listScenario
+        listScenario,
+        addScenario
 } from 'actions/api/scenario';
