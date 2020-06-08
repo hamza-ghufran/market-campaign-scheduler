@@ -15,6 +15,7 @@ import {
   Typography,
   CardActions,
   CardContent,
+  Fab,
 } from '@material-ui/core';
 
 import {
@@ -72,12 +73,16 @@ const ListCampaign = props => {
                     <TableCell>{moment(campaign.end_date).format('MMMM Do YYYY')}</TableCell>
                     <TableCell>{campaign.active ? 'Yes' : 'No'}</TableCell>
                     <TableCell>
-                      <input
-                        onChange={(e) => props.onFileUpload(e, campaign.batch_id)}
-                        type="file"
-                      // style={{ display: "none" }}
-                      />
-                      {/* <CloudUploadOutlined /> */}
+                      <label htmlFor="upload-file">
+                        <input
+                          type="file"
+                          id="upload-file"
+                          name="upload-file"
+                          style={{ display: "none" }}
+                          onChange={(e) => props.onFileUpload(e, campaign.batch_id)}
+                        />
+                        <CloudUploadOutlined />
+                      </label>
                     </TableCell>
                   </TableRow>
                 ))}

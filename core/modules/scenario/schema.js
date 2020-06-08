@@ -35,7 +35,8 @@ const schema = mongoose.Schema({
   },
 
   contact_served: {
-    type: Number
+    type: Number,
+    default: 0
   },
 
   active: {

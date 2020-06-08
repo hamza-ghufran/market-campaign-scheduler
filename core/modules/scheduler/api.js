@@ -39,9 +39,9 @@ module.exports.scheduler = function (_cb) {
         campaign_id: {
           $in: all_active_campaign_keys
         },
-        // date: {
-        //   '$eq': new Date()
-        // }
+        date: {
+          '$eq': new Date(new Date().setUTCHours(0, 0, 0, 0))
+        }
       })
         .then((scenarios) => {
           return cb(null, { scenarios })

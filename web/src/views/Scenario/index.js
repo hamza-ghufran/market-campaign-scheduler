@@ -30,16 +30,20 @@ const style = theme => ({
   }
 })
 
+const initial_state = {
+  time: '',
+  name: '',
+  subject: '',
+  content: '',
+  campaign_id: '',
+  date: moment().format('YYYY-MM-DD'),
+}
+
 class Scenario extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      time: '',
-      name: '',
-      subject: '',
-      content: '',
-      campaign_id: '',
-      date: moment().format('YYYY-MM-DD'),
+      ...initial_state
     }
   }
 
@@ -75,7 +79,9 @@ class Scenario extends React.Component {
         this.fetchRequiredData()
       })
       .finally(() => {
-        this.props.history.push('/scenarios')
+        this.setState({ ...initial_state }, () => {
+          this.props.history.push('/scenarios')
+        })
       })
   }
 
