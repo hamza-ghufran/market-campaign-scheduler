@@ -8,6 +8,8 @@ const sgMailer = require('../../utils/send-grid')
 module.exports.send = function (data, _cb) {
   const emailer_id = data.emailer_id
 
+
+  
   async.auto({
     get_emailer_obj: (cb) => {
       Emailer.find({
