@@ -30,11 +30,11 @@ b
 
 
 
-
-
-a
-1
-2
+const 
+let
+var
+something
+const test =
 3
 4
 some code
